@@ -12,11 +12,16 @@ from config import config
 from .intern_image import InternImage
 from .flash_intern_image import FlashInternImage
 from .vit_dcnv4 import create_vit_dcnv4_model
+from .resnet import resnet50
+from .resnet import resnet18
 
 def build_model():
     # model_type = 'flash_intern_image'
     # model_type = 'intern_image'
-    model_type = 'vit_dcnv4'  # Use the new ViT-DCNv4 hybrid model
+    # model_type = 'vit_dcnv4'  # Use the new ViT-DCNv4 hybrid model
+    # model_type = 'resnet50'
+    model_type = 'resnet18'
+
     
     if model_type == 'intern_image':
         model = InternImage(
@@ -66,6 +71,10 @@ def build_model():
             num_classes=config.MODEL.NUM_CLASSES,
             image_size=512  # Fixed image size for remote sensing
         )
+    elif model_type == 'resnet50':
+        model = resnet50(pretrained=False)
+    elif model_type == 'resnet18':
+        model = resnet18(pretrained=False)
     else:
         raise NotImplementedError(f"Unknown model: {model_type}")
 

@@ -16,13 +16,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from models.build import build_model
 from torchsummary import summary
-
+from timm.optim import Lamb
 
 DEVICE       = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 BATCH_SIZE   = 8     
-NUM_EPOCHS   = 20 
+NUM_EPOCHS   = 50
 NUM_CLASSES  = 5     
-LR           = 1e-4                        
+LR           = 1e-4                      
 IM_SIZE      = 512
 
 mean, std = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
@@ -34,6 +34,8 @@ TRAINED_MODEL = '/root/Water_Resource/trained_models/data_record.pth'
 TRAIN_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/train_new'
 VALID_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/valid_new'
 TEST_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/test'
+
+torch.cuda.empty_cache()
 
 
 tfm = transforms.Compose([
@@ -57,6 +59,7 @@ summary(model, input_size=(3, IM_SIZE, IM_SIZE), device=str(DEVICE))
 
 criterion = nn.CrossEntropyLoss()
 optimizer = AdamW(model.parameters(), lr=LR)   # 无正则
+# optimizer = Lamb(model.parameters(), lr=LR)
 
 
 def train_one_epoch():
@@ -121,7 +124,7 @@ for epoch in range(NUM_EPOCHS):
             "state_dict": model.state_dict(),
             "best_acc": best_acc,
             "epoch": epoch
-        }, "best_vit_dcnv4.pth")
+        }, "best_resnet50.pth")
         print(f"*** New best Acc@1 {best_acc:.2f}% @ epoch {epoch} ***")
 
 print(f"\nFinished. Best Acc@1 {best_acc:.2f}%")

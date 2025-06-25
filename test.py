@@ -19,7 +19,7 @@ IM_SIZE            = 512
 MEAN, STD          = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
 TEST_DATASET_DIR   = '/root/autodl-tmp/Dataset-6-15/test'
 # WEIGHTS_PATH       = '/root/Water_Resource/best_flash_internimage.pth'        # 训练脚本保存的权重
-WEIGHTS_PATH       = '/root/Water_Resource/logs/vitdcnv4_06-21-3/best_vit_dcnv4.pth'        # 训练脚本保存的权重
+WEIGHTS_PATH       = '/root/Water_Resource/logs/resnet18_06-25-1-50epoch/best_resnet18.pth'        # 训练脚本保存的权重
 CLASS_MAP_PATH     = 'classification_to_name.json'       # 类别映射（idx ➜ 中文/英文名）
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
