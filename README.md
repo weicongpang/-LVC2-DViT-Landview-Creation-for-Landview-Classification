@@ -22,14 +22,15 @@ Water_Resource/
 │   └── DCNv4/                         # DCNv4 operation module
 ├── DCNv4_op/                          # Functions of DCNv4
 ├── ops_dcnv3/                         # Functions of DCNv3
+├── environment.yaml                   # Project's environment setup
 ```
 
 
 ## Supported Models
 
-1. **Vision Transformer**:
-2. **FlashInternImage**: Advanced image classification model based on DCNv4
-3. **DViT**:
+1. **Vision Transformer**
+2. **FlashInternImage**
+3. **DViT (Deformable Vision Transformer)**
 
 
 
