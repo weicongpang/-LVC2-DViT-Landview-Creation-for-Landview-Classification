@@ -8,7 +8,7 @@ classification whose adaptive receptive fields more faithfully model irregular l
 ## Project Structure
 
 ```
-Water_Resource/
+-LVC2-DViT-Landview-Creation-for-Landview-Classification/
 ├── config.py                          # Global configuration file
 ├── train.py                           # Training script
 ├── test.py                            # Testing script
