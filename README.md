@@ -92,7 +92,7 @@ The testing script will:
 For Vision Transformer, you should go into vit_train_val_test.ipynb to start the training and testing by using Vision Transformer model. 
 
 ## Pretrained Models
-We also provided our proposed pretrained checkpoint DViT model, which is available at *[Checkpointn Model](https://drive.google.com/file/d/14cEaFWWmT0-B8wrZdbLROYxWx3HjpTdJ/view?usp=sharing)*.
+We also provided our proposed pretrained checkpoint DViT model, which is available at *[Checkpoint Model](https://drive.google.com/file/d/14cEaFWWmT0-B8wrZdbLROYxWx3HjpTdJ/view?usp=sharing)*.
 
 ## Performance Metrics
 
