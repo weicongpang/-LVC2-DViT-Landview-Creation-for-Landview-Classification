@@ -45,10 +45,12 @@ Water_Resource/
 1. **Clone the project**
 ```bash
 git clone https://github.com/weicongpang/-LVC2-DViT-Landview-Creation-for-Landview-Classification.git
-cd Water_Resource
+cd -LVC2-DViT-Landview-Creation-for-Landview-Classification
 ```
 
-2. **Install dependencies**
+2. **Install relevant dependencies**
+
+Please follow environment.yaml to install relevant packages. 
 ```bash
 pip install torch torchvision timm matplotlib seaborn scikit-learn pillow opencv-python
 ```
