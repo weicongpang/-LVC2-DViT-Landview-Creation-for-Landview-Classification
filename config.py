@@ -10,26 +10,6 @@ from yacs.config import CfgNode as CN
 
 
 
-# # Category of Dataset
-# NUM_CLASSES = 5
-
-# # Batch size
-# BATCH_SIZE = 16
-
-# # Training Epochs
-# NUM_EPOCHS= 100
-
-# # Save trained model
-# TRAINED_MODEL = '/root/Water_Resource/trained_models/data_record.pth'
-
-# # Dataset path
-# TRAIN_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/train_new'
-# VALID_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/valid_new'
-# TEST_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/test'
-
-
-
-
 _C = CN()
 
 # Base config files
