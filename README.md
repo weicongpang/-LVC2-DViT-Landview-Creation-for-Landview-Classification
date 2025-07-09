@@ -24,60 +24,14 @@ Water_Resource/
 ├── ops_dcnv3/                         # Functions of DCNv3
 ```
 
-## Core Files Description
-
-### Configuration Files
-- **`config.py`**: Global configuration management, containing all parameter settings for data, models, training, etc.
-- **`configs/`**: Contains YAML configuration files for different model architectures
-
-### Training Related
-- **`train.py`**: Main training script, supporting model training, validation, and saving best models
-- **`vit_train_val_test.ipynb`**: Jupyter notebook provided for Vision Transformer Training and Testing
-
-### Testing Related
-- **`test.py`**: Model testing script, generating confusion matrices and calculating various metrics
-- **`classification_to_name.json`**: Class ID to name mapping file
-
-### Model Definitions
-- **`models/build.py`**: Model builder, creating different architecture models based on configuration
-- **`models/flash_intern_image.py`**: FlashInternImage model implementation
-- **`models/intern_image.py`**: InternImage model implementation
-- **`models/vit_dcnv4.py`**: ViT-DCNv4 hybrid model implementation
-
-### CUDA Extensions
-- **`DCNv4_op/`**: DCNv4 CUDA implementation, providing deformable convolution operations
-- **`ops_dcnv3/`**: DCNv3 CUDA implementation
 
 ## Supported Models
 
-1. **FlashInternImage**: Advanced image classification model based on DCNv4
-2. **InternImage**: Classic image classification model based on DCNv3
-3. **ViT-DCNv4**: Hybrid model combining Vision Transformer and DCNv4
+1. **Vision Transformer**:
+2. **FlashInternImage**: Advanced image classification model based on DCNv4
+3. **DViT**:
 
-## Dataset Format
 
-The project uses ImageFolder format datasets with the following directory structure:
-```
-Dataset-6-15/
-├── train/
-│   ├── Beach/
-│   ├── Bridge/
-│   ├── Pond/
-│   ├── Port/
-│   └── River/
-├── val/
-│   ├── Beach/
-│   ├── Bridge/
-│   ├── Pond/
-│   ├── Port/
-│   └── River/
-└── test/
-    ├── Beach/
-    ├── Bridge/
-    ├── Pond/
-    ├── Port/
-    └── River/
-```
 
 ## Environment Requirements
 
@@ -90,7 +44,7 @@ Dataset-6-15/
 
 1. **Clone the project**
 ```bash
-git clone <repository_url>
+git clone https://github.com/weicongpang/-LVC2-DViT-Landview-Creation-for-Landview-Classification.git
 cd Water_Resource
 ```
 
@@ -99,35 +53,22 @@ cd Water_Resource
 pip install torch torchvision timm matplotlib seaborn scikit-learn pillow opencv-python
 ```
 
-3. **Compile CUDA extensions** (optional, for DCNv4/DCNv3)
-```bash
-cd DCNv4_op
-bash make.sh
-cd ../ops_dcnv3
-bash make.sh
+3. **Train and Test** 
+Open ```models/build.py```, modify this code ```model_type = 'flash_intern_image' ``` based on the model you want to train.
+You can also modify the training parameters in ```models/build.py```.
+
+Modify the following configurations based on the path of your dataset and the path of your weights file.
+You can specify the directories that you want to save your results. 
+```
+TEST_DATASET_DIR = '/root/autodl-tmp/Dataset-6-15/test'
+WEIGHTS_PATH = '/root/Water_Resource/train_tasks/run_flashinternimage_20250703_112824/checkpoint_epoch_50.pth'
+CLASS_MAP_PATH = '/root/Water_Resource/classification_to_name.json'
+RESULTS_DIR = '/root/Water_Resource/test_tasks/flashinternimage_20250708'
+CM_FILENAME = 'confusion_matrix_flashinternimage.png'   # Confusion Matrix Filename
+RESULTS_FILENAME = 'results.txt'                # Results Filename
 ```
 
-## Usage Guide
-
-### 1. Data Preparation
-
-Organize the dataset in ImageFolder format and update the paths in the configuration file:
-
-```python
-# Modify in config.py
-TRAIN_DATASET_DIR = '/path/to/your/dataset/train'
-VALID_DATASET_DIR = '/path/to/your/dataset/val'
-TEST_DATASET_DIR = '/path/to/your/dataset/test'
-```
-
-### 2. Model Training
-
-```bash
-# Train with default configuration
-python train.py
-
-# Training results will be saved in train_tasks/ directory
-```
+Run ```python train.py``` for training.
 
 During training, the script will:
 - Automatically create timestamped result directories
@@ -136,12 +77,8 @@ During training, the script will:
 - Record training logs
 - Generate training curve plots
 
-### 3. Model Testing
 
-```bash
-# Test model performance
-python test.py
-```
+Run ```python test.py``` for testing. 
 
 The testing script will:
 - Load trained model weights
@@ -150,49 +87,9 @@ The testing script will:
 - Calculate various classification metrics
 - Save detailed result reports
 
-### 4. Using Jupyter Notebook
+For Vision Transformer, you should go into vit_train_val_test.ipynb to start the training and testing by using Vision Transformer model. 
 
-```bash
-# Start Jupyter
-jupyter notebook vit_train_val_test.ipynb
-```
 
-The notebook provides interactive training and testing functionality.
-
-## Configuration Guide
-
-### Training Parameters (config.py)
-
-```python
-# Basic training parameters
-BATCH_SIZE = 8
-NUM_EPOCHS = 50
-LR = 1e-4
-IM_SIZE = 512
-
-# Data augmentation
-MEAN, STD = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
-```
-
-### Model Selection (models/build.py)
-
-```python
-# Modify model_type in build.py to select different models
-model_type = 'flash_intern_image'  # Options: 'intern_image', 'vit_dcnv4'
-```
-
-## Output Results
-
-### Training Output
-- **Best Model**: `best_flashinternimage.pth`
-- **Checkpoints**: `checkpoint_epoch_X.pth`
-- **Training Log**: `train_log.txt`
-- **Training Curves**: `curves.png`
-
-### Testing Output
-- **Confusion Matrix**: `confusion_matrix_flashinternimage.png`
-- **Normalized Confusion Matrix**: `normalized_confusion_matrix_flashinternimage.png`
-- **Detailed Results**: `results.txt`
 
 ## Performance Metrics
 
@@ -203,33 +100,8 @@ The testing script calculates the following metrics:
 - **Precision/Recall/F1-score**: Precision/Recall/F1-score
 - **Per-class Accuracy**: Accuracy for each class
 
-## Important Notes
 
-1. **GPU Memory**: Adjust BATCH_SIZE based on GPU VRAM
-2. **Data Paths**: Ensure dataset paths are correct
-3. **Model Weights**: Ensure weight file paths are correct before testing
-4. **CUDA Extensions**: Compile CUDA extensions first if using DCNv4/DCNv3
 
-## Troubleshooting
 
-### Common Issues
 
-1. **Insufficient CUDA Memory**
-   - Reduce BATCH_SIZE
-   - Lower image size IM_SIZE
 
-2. **Model Loading Failure**
-   - Check weight file paths
-   - Confirm model architecture compatibility
-
-3. **Data Loading Errors**
-   - Check dataset paths
-   - Confirm ImageFolder format is correct
-
-## Contributing
-
-Welcome to submit Issues and Pull Requests to improve the project.
-
-## License
-
-This project is open source under the MIT License. 
