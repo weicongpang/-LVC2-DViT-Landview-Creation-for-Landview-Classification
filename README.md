@@ -36,9 +36,8 @@ Water_Resource/
 
 ## Environment Requirements
 
-- Python 3.8+
-- PyTorch 1.12+
-- CUDA 11.0+ (for GPU training)
+- Python 3.12+
+- PyTorch 2.5.1+cu124
 - Other dependencies: torchvision, timm, matplotlib, seaborn, sklearn, PIL, opencv-python
 
 ## Installation Steps
